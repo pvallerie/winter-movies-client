@@ -1,12 +1,17 @@
+// import apiUrl
 import apiUrl from '../apiConfig'
+// import axios to make http request
 import axios from 'axios'
 
+// singUp function accepts credentials (email, pw, pwconfirmation)
 export const signUp = credentials => {
+  // makes axios request and returns promise so we can use `.then` on it
   return axios({
     method: 'POST',
     url: apiUrl + '/sign-up',
     data: {
       credentials: {
+        // since `credentials` is like this.state, credentials.email is like this.state.email
         email: credentials.email,
         password: credentials.password,
         password_confirmation: credentials.passwordConfirmation
@@ -17,9 +22,11 @@ export const signUp = credentials => {
 
 export const signIn = credentials => {
   return axios({
+    // like signUp, but different URL
     url: apiUrl + '/sign-in',
     method: 'POST',
     data: {
+      // like signUp, but no pwconfirmation
       credentials: {
         email: credentials.email,
         password: credentials.password

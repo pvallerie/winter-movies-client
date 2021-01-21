@@ -1,1 +1,14 @@
+$primary: #546747;
+$secondary: #fddca5;
+$danger: #7e0f12;
+$success: #bbc8ba;
+$bg-secondary: #fddca5;
+
 @import '~bootstrap/scss/bootstrap';
+
+$creamy-yellow: #fddca5;
+$light-palm-green: #546747;
+
+body {
+background-color: $creamy-yellow;
+}
