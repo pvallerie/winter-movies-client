@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 
 // import signUp and signIn functions that make axios http requests
 import { signUp, signIn } from '../../api/auth'
-
 // import pre-defined alert messages
 import messages from '../AutoDismissAlert/messages'
 

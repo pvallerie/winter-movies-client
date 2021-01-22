@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
+// import singIn axios call
 import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
@@ -11,6 +12,7 @@ class SignIn extends Component {
   constructor (props) {
     super(props)
 
+    // same state as SignUp, minus the pwconfirmation
     this.state = {
       email: '',
       password: ''

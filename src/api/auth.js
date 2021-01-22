@@ -35,6 +35,7 @@ export const signIn = credentials => {
   })
 }
 
+// singOut axios function needs a user to access its token
 export const signOut = user => {
   return axios({
     url: apiUrl + '/sign-out',

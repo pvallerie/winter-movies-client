@@ -13,6 +13,9 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
+import MovieIndex from './components/MovieIndex/MovieIndex'
+import MovieCreate from './components/MovieCreate/MovieCreate'
+import MovieShow from './components/MovieShow/MovieShow'
 
 class App extends Component {
   // add a constructor to initialize state for our app
@@ -60,7 +63,9 @@ class App extends Component {
     return (
       <Fragment>
 
-        {/* this header is the top nav bar with our links */}
+        {/* this header is the top nav bar with our links
+          we pass it the user so it can display the username (welcome, p@v.com)
+          and so it will know whether you're signed in (determines whether it displays authenticated/unauthenticated buttons) */}
         <Header user={user} />
 
         {/* take each msgAlert and map it into an AutoDismissAlert element */}
@@ -82,7 +87,8 @@ class App extends Component {
             // also pass setUser function so we're automatically signed in after signing up
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
-          {/* use normal Route component so we can see SignIn when we're not logged in */}
+          {/* use normal Route component so we can see SignIn when we're not logged in
+          same as signUp, but the path changes to /sign-in and the component changes to SignIn */}
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -90,10 +96,23 @@ class App extends Component {
           the user is singed in by checking whether `user` is null. AuthenticatedRoute will show if `user` is not null.
           If null, the user is redirected to the sign in page. */}
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+            // SignOut wants a clearUser prop to reset the user after signing out
+            // it also wants a user prop so it can use the user's token to make an auth request
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
+            // similar to SignOut, but different component and different path
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+
+          <AuthenticatedRoute user={user} exact path='/movies' render={() => (
+            <MovieIndex msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-movie' render={() => (
+            <MovieCreate msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/movies/:id' render={() => (
+            <MovieShow msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

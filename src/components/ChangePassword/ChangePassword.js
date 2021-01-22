@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
+// imports the changePassword axios call
 import { changePassword } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
@@ -11,6 +12,7 @@ class ChangePassword extends Component {
   constructor (props) {
     super(props)
 
+    // API needs old and new passwords, so we add those to our initial state
     this.state = {
       oldPassword: '',
       newPassword: ''
@@ -26,6 +28,7 @@ class ChangePassword extends Component {
 
     const { msgAlert, history, user } = this.props
 
+    // call changePassword axios request and pass it old and new passwords, as well as user so we can access token
     changePassword(this.state, user)
       .then(() => msgAlert({
         heading: 'Change Password Success',
@@ -44,6 +47,7 @@ class ChangePassword extends Component {
   }
 
   render () {
+    // extract old and new passwords from state
     const { oldPassword, newPassword } = this.state
 
     return (
