@@ -16,6 +16,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import MovieIndex from './components/MovieIndex/MovieIndex'
 import MovieCreate from './components/MovieCreate/MovieCreate'
 import MovieShow from './components/MovieShow/MovieShow'
+import MovieUpdate from './components/MovieUpdate/MovieUpdate'
 
 class App extends Component {
   // add a constructor to initialize state for our app
@@ -113,6 +114,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/movies/:id' render={() => (
             <MovieShow msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route path='/update-movie/:id' render={() => (
+            <MovieUpdate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

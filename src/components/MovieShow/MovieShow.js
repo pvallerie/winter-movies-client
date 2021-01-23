@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect, Link } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 
-import { movieShow } from '../../api/movies'
+import { movieShow, movieDelete } from '../../api/movies'
 
 class MovieShow extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      movie: null
+      movie: null,
+      exists: true
     }
   }
 
@@ -32,8 +33,31 @@ class MovieShow extends Component {
       })
   }
 
+  onMovieDelete = () => {
+    const { user, match, msgAlert } = this.props
+
+    movieDelete(match.params.id, user)
+      .then(() => msgAlert({
+        heading: 'Deleted Movie successfully',
+        message: 'The Movie has been deleted',
+        variant: 'success'
+      }))
+      .then(this.setState({ exists: false }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Deleting Movie failed',
+          message: `Failed to delete Movie with error: ${error.message}`,
+          variant: 'danger'
+        })
+      })
+  }
+
   render () {
-    const { movie } = this.state
+    const { movie, exists } = this.state
+
+    if (!exists) {
+      return <Redirect to={'/movies'} />
+    }
 
     if (!movie) {
       return (
@@ -48,8 +72,10 @@ class MovieShow extends Component {
       <div>
         <h3>{movie.title}</h3>
         <h4>Director: {movie.director}</h4>
-        <button>Delete</button>
-        <button>Update</button>
+        <button onClick={this.onMovieDelete}>Delete</button>
+        <button>
+          <Link to={`/update-movie/${movie._id}`}>Update</Link>
+        </button>
       </div>
     )
   }

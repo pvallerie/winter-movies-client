@@ -4,7 +4,6 @@ const MovieForm = ({ movie, handleSubmit, handleChange }) => (
   <form onSubmit={handleSubmit}>
     <label>Title</label>
     <input
-      required
       placeholder='Enter movie title'
       // this name should line up with the state we want to change
       name='title'
@@ -13,7 +12,6 @@ const MovieForm = ({ movie, handleSubmit, handleChange }) => (
     />
     <label>Director</label>
     <input
-      required
       placeholder='Enter movie director'
       // this name should line up with the state we want to change
       name='director'
